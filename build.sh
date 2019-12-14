@@ -17,7 +17,7 @@
 sudo add-apt-repository universe -y
 sudo apt-get update
 
-sudo apt-get -y install libcurl4-gnutls-dev python3-pyqt5 python3-zmq python3-numpy python3-pip
+sudo apt-get -y install libcurl4-gnutls-dev python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
 sudo -H pip3 install crccheck
 
 APPDIR=$(readlink -f appdir)
