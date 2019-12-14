@@ -17,7 +17,8 @@
 sudo add-apt-repository universe -y
 sudo apt-get update
 
-sudo apt-get -y install libcurl4-gnutls-dev python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
+sudo apt-get -y install libcurl4-gnutls-dev python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools \
+libtool intltool autoconf automake libcurl4-openssl-dev pkg-config libglib2.0-dev libgtk-3-dev libgoocanvas-2.0-dev
 sudo -H pip3 install wheel
 sudo -H pip3 install crccheck
 
@@ -32,7 +33,7 @@ mkdir -p "${APPDIR}"
 # also available as an AppImage: https://github.com/csete/gpredict/releases
 git clone https://github.com/csete/gpredict
 cd gpredict
- ./configure --prefix=/usr
+ ./autogen.sh --prefix=/usr
 make -j$(nproc)
 make DESTDIR="${APPDIR}" install
 cd ..
