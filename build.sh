@@ -52,6 +52,17 @@ cd ../..
 # 2. OPS-SAT demodulator and decoder (os_demod_decode.grc)
 #############################################################################
 
+# Workaround for:
+# libfec required to compile satellites
+wget -c http://www.ka9q.net/code/fec/fec-3.0.1.tar.bz2
+tar xf fec-3.0.1.tar.bz2
+cd fec-*/
+./configure
+make -j$(nproc)
+sudo make install
+cd ..
+
+# gr-satellites
 git clone https://github.com/daniestevez/gr-satellites
 cd gr-satellites
 mkdir build
