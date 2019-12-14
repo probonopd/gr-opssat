@@ -18,7 +18,7 @@ sudo add-apt-repository universe -y
 sudo apt-get update
 
 sudo apt-get -y install libcurl4-gnutls-dev python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools \
-libtool intltool autoconf automake pkg-config libglib2.0-dev libgtk-3-dev libgoocanvas-2.0-dev
+libtool intltool autoconf automake pkg-config libglib2.0-dev libgtk-3-dev libgoocanvas-2.0-dev gnuradio-dev
 sudo -H pip3 install wheel
 sudo -H pip3 install crccheck
 
