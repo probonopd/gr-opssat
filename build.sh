@@ -39,6 +39,8 @@ make DESTDIR="${APPDIR}" install
 cd ..
 
 # gr-gpredict-doppler
+git clone https://github.com/wnagele/gr-gpredict-doppler
+cd gr-gpredict-doppler
 mkdir build
 cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
