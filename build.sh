@@ -36,6 +36,7 @@ cd gpredict
  ./autogen.sh --prefix=/usr
 make -j$(nproc)
 make DESTDIR="${APPDIR}" install
+cp pixmaps/icons/gpredict-icon.png "${APPDIR}"/
 cd ..
 
 # gr-gpredict-doppler
