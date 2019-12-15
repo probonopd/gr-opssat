@@ -35,6 +35,9 @@ apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-set
 find . -name '*.deb' -exec dpkg-deb -x {} "${APPDIR}" \;
 export PYTHONHOME="${APPDIR}"/usr
 export PATH="${APPDIR}"/usr/bin:$PATH
+which python
+which python3
+python3 --version
 
 #############################################################################
 # 1. UHF receiver application (os_uhf_rx.grc) 
