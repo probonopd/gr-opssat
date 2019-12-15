@@ -84,7 +84,7 @@ cd ../..
 
 apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
 
-( cd "${APPDIR}" ; find .. -name '*.deb' -exec dpkg-deb -x {} \; )
+( cd "${APPDIR}" ; find .. -name '*.deb' -exec dpkg-deb -x {} . \; )
 
 export PYTHONHOME="${APPDIR}"/usr
 "${APPDIR}"/usr/bin/pip3 install wheel
