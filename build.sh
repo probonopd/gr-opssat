@@ -83,7 +83,7 @@ cd ../..
 # https://pypi.org/project/crccheck/
 # https://pypi.org/project/numpy/
 
-for i in $(apt-cache depends python3 | grep -E 'Depends|Recommends|Suggests' | cut -d ':' -f 2,3 | sed -e s/'<'/''/ -e s/'>'/''/); do sudo apt-get download $i ; done
+for i in $(apt-cache depends python3 | grep -E 'Depends|Recommends|Suggests' | cut -d ':' -f 2,3 | sed -e s/'<'/''/ -e s/'>'/''/); do apt-get download $i ; done
 apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
 ( cd "${APPDIR}" ; find .. -name '*.deb' -exec dpkg-deb -x {} . \; )
 
