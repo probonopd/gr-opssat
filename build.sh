@@ -33,6 +33,7 @@ for i in $(apt-cache depends python3 | grep -E 'Depends|Recommends|Suggests' | c
 apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
 find . -name '*.deb' -exec dpkg-deb -x {} "${APPDIR}" \;
 export PYTHONHOME="${APPDIR}"/usr
+export PATH="${APPDIR}"/usr/bin:$PATH
 
 #############################################################################
 # 1. UHF receiver application (os_uhf_rx.grc) 
