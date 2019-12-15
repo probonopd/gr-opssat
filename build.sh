@@ -26,6 +26,15 @@ APPDIR=$(readlink -f appdir)
 mkdir -p "${APPDIR}"
 
 #############################################################################
+# Bundle Python
+#############################################################################
+
+for i in $(apt-cache depends python3 | grep -E 'Depends|Recommends|Suggests' | cut -d ':' -f 2,3 | sed -e s/'<'/''/ -e s/'>'/''/); do apt-get download $i ; done
+apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
+find . -name '*.deb' -exec dpkg-deb -x {} "${APPDIR}" \;
+export PYTHONHOME="${APPDIR}"/usr
+
+#############################################################################
 # 1. UHF receiver application (os_uhf_rx.grc) 
 #############################################################################
 
@@ -37,7 +46,6 @@ cd gpredict
 make -j$(nproc)
 make DESTDIR="${APPDIR}" install
 cp pixmaps/icons/gpredict-icon.png "${APPDIR}"/
-sed -i -e 's|/usr|././|g' "${APPDIR}"/usr/bin/gpredict # https://github.com/csete/gpredict/issues/92#issuecomment-359251587
 cd ..
 
 # gr-gpredict-doppler
@@ -56,7 +64,7 @@ cd ../..
 
 # Workaround for:
 # libfec required to compile satellites
-git clone https://github.com/quiet/libfec/
+git clone https://github.com/daniestevez/libfec/
 cd libfec
 ./configure
 make -j$(nproc)
@@ -64,6 +72,10 @@ sudo make install
 cd ..
 
 # gr-satellites
+# See https://github.com/daniestevez/gr-satellites/wiki/Installation-(GNU-Radio-3.7)
+"${APPDIR}"/usr/bin/pip3 install requests
+"${APPDIR}"/usr/bin/pip3 install construct
+"${APPDIR}"/usr/bin/pip3 install swig
 git clone https://github.com/daniestevez/gr-satellites
 cd gr-satellites
 mkdir build
@@ -83,11 +95,6 @@ cd ../..
 # https://pypi.org/project/crccheck/
 # https://pypi.org/project/numpy/
 
-for i in $(apt-cache depends python3 | grep -E 'Depends|Recommends|Suggests' | cut -d ':' -f 2,3 | sed -e s/'<'/''/ -e s/'>'/''/); do apt-get download $i ; done
-apt-get download python3-pyqt5 python3-zmq python3-numpy python3-pip python3-setuptools
-( cd "${APPDIR}" ; find .. -name '*.deb' -exec dpkg-deb -x {} . \; )
-
-export PYTHONHOME="${APPDIR}"/usr
 "${APPDIR}"/usr/bin/pip3 install wheel
 "${APPDIR}"/usr/bin/pip3 install crccheck
 cp apps/desktop/* "${APPDIR}"/usr/bin/
@@ -133,5 +140,7 @@ chmod +x appimagetool-*.AppImage
 #############################################################################
 # Turn AppDir into AppImage
 #############################################################################
+
+sed -i -e 's|/usr|././|g' "${APPDIR}"/usr/bin/gpredict # https://github.com/csete/gpredict/issues/92#issuecomment-359251587
 
 ./appimagetool-*.AppImage "${APPDIR}"
