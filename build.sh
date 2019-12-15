@@ -37,6 +37,7 @@ cd gpredict
 make -j$(nproc)
 make DESTDIR="${APPDIR}" install
 cp pixmaps/icons/gpredict-icon.png "${APPDIR}"/
+sed -i -e 's|/usr|././|g' "${APPDIR}"/usr/bin/gpredict # https://github.com/csete/gpredict/issues/92#issuecomment-359251587
 cd ..
 
 # gr-gpredict-doppler
